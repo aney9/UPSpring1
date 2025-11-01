@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <div class="container">
+        <h2>Добро пожаловать, <span th:text="${user.fullName != null ? user.fullName : user.username}"></span>!</h2>
+        
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <h3>Заказов</h3>
+                <p class="stat-number" th:text="${ordersCount}"></p>
+            </div>
+        </div>
+        
+        <div class="dashboard-actions">
+            <a th:href="@{/client/products}" class="btn btn-primary">Перейти к каталогу</a>
+            <a th:href="@{/client/orders}" class="btn btn-secondary">Мои заказы</a>
+        </div>
+    </div>
+</body>
+</html>
+
+

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление поставщиками</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <div class="container">
+        <h2>Поставщики</h2>
+        
+        <div class="action-bar">
+            <a th:href="@{/admin/suppliers/new}" class="btn btn-success">Добавить поставщика</a>
+        </div>
+        
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Компания</th>
+                    <th>Контактное лицо</th>
+                    <th>Телефон</th>
+                    <th>Email</th>
+                    <th>Рейтинг</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="supplier : ${suppliers}">
+                    <td th:text="${supplier.id}"></td>
+                    <td th:text="${supplier.companyName}"></td>
+                    <td th:text="${supplier.contactPerson}"></td>
+                    <td th:text="${supplier.phone}"></td>
+                    <td th:text="${supplier.email}"></td>
+                    <td th:text="${supplier.rating}"></td>
+                    <td>
+                        <a th:href="@{'/admin/suppliers/edit/' + ${supplier.id}}" class="btn btn-sm btn-primary">Редактировать</a>
+                        <form th:action="@{'/admin/suppliers/delete/' + ${supplier.id}}" method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Удалить поставщика?')">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+

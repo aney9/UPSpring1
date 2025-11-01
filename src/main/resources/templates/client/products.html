@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог товаров</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <div class="container">
+        <h2>Каталог товаров</h2>
+        
+        <div class="filter-section">
+            <a th:href="@{/client/products}" class="btn btn-secondary">Все категории</a>
+            <div th:each="category : ${categories}" class="category-filter">
+                <a th:href="@{/client/products(categoryId=${category.id})}" 
+                   class="btn btn-secondary"
+                   th:text="${category.name}"></a>
+            </div>
+        </div>
+        
+        <div class="products-grid">
+            <div th:each="product : ${products}" class="product-card">
+                <div class="product-image">
+                    <img th:if="${product.imageUrl}" th:src="${product.imageUrl}" alt="Product Image">
+                    <div th:unless="${product.imageUrl}" class="no-image">Нет фото</div>
+                </div>
+                <div class="product-info">
+                    <h3 th:text="${product.name}"></h3>
+                    <p class="product-price" th:text="'₽' + ${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"></p>
+                    <p class="product-quantity" th:text="'В наличии: ' + ${product.quantity}"></p>
+                    <a th:href="@{'/client/products/' + ${product.id}}" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        
+        <div th:if="${#lists.isEmpty(products)}" class="empty-state">
+            <p>Товары не найдены</p>
+        </div>
+    </div>
+</body>
+</html>
+
+

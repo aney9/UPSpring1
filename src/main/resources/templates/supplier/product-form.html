@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить/Редактировать товар</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <div class="container">
+        <h2 th:text="${product.id != null} ? 'Редактировать товар' : 'Добавить товар'"></h2>
+        
+        <form th:action="${product.id != null ? '/supplier/products/edit/' + product.id : '/supplier/products/new'}" 
+              th:object="${product}" method="post" class="form">
+            
+            <div class="form-group">
+                <label for="name">Название товара:</label>
+                <input type="text" id="name" th:field="*{name}" required>
+                <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Описание:</label>
+                <textarea id="description" th:field="*{description}" rows="4"></textarea>
+                <span class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="price">Цена:</label>
+                <input type="number" id="price" th:field="*{price}" step="0.01" required>
+                <span class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="quantity">Количество:</label>
+                <input type="number" id="quantity" th:field="*{quantity}" required>
+                <span class="error" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="category">Категория:</label>
+                <select id="category" th:field="*{category}">
+                    <option value="">-- Выберите категорию --</option>
+                    <option th:each="cat : ${categories}" 
+                            th:value="${cat.id}" 
+                            th:text="${cat.name}"
+                            th:selected="${product.category != null && product.category.id == cat.id}"></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="warehouse">Склад:</label>
+                <select id="warehouse" th:field="*{warehouse}">
+                    <option value="">-- Выберите склад --</option>
+                    <option th:each="wh : ${warehouses}" 
+                            th:value="${wh.id}" 
+                            th:text="${wh.name}"
+                            th:selected="${product.warehouse != null && product.warehouse.id == wh.id}"></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="imageUrl">URL изображения:</label>
+                <input type="url" id="imageUrl" th:field="*{imageUrl}">
+                <span class="error" th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}"></span>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <a th:href="@{/supplier/products}" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
+

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ панель</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <div class="container">
+        <h2>Админ панель</h2>
+        
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <h3>Пользователи</h3>
+                <p class="stat-number" th:text="${usersCount}"></p>
+            </div>
+            <div class="stat-card">
+                <h3>Товары</h3>
+                <p class="stat-number" th:text="${productsCount}"></p>
+            </div>
+            <div class="stat-card">
+                <h3>Заказы</h3>
+                <p class="stat-number" th:text="${ordersCount}"></p>
+            </div>
+            <div class="stat-card">
+                <h3>Категории</h3>
+                <p class="stat-number" th:text="${categoriesCount}"></p>
+            </div>
+        </div>
+        
+        <div class="admin-links">
+            <h3>Управление</h3>
+            <ul class="nav-links">
+                <li><a th:href="@{/admin/users}">Пользователи</a></li>
+                <li><a th:href="@{/admin/roles}">Роли</a></li>
+                <li><a th:href="@{/admin/products}">Товары</a></li>
+                <li><a th:href="@{/admin/categories}">Категории</a></li>
+                <li><a th:href="@{/admin/warehouses}">Склады</a></li>
+                <li><a th:href="@{/admin/suppliers}">Поставщики</a></li>
+                <li><a th:href="@{/admin/orders}">Заказы</a></li>
+                <li><a th:href="@{/admin/reviews}">Отзывы</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+

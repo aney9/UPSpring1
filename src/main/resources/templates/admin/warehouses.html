@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление складами</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <div class="container">
+        <h2>Склады</h2>
+        
+        <div class="action-bar">
+            <a th:href="@{/admin/warehouses/new}" class="btn btn-success">Добавить склад</a>
+        </div>
+        
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Адрес</th>
+                    <th>Телефон</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="warehouse : ${warehouses}">
+                    <td th:text="${warehouse.id}"></td>
+                    <td th:text="${warehouse.name}"></td>
+                    <td th:text="${warehouse.address}"></td>
+                    <td th:text="${warehouse.phone}"></td>
+                    <td>
+                        <a th:href="@{'/admin/warehouses/edit/' + ${warehouse.id}}" class="btn btn-sm btn-primary">Редактировать</a>
+                        <form th:action="@{'/admin/warehouses/delete/' + ${warehouse.id}}" method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Удалить склад?')">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+

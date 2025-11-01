@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <header th:fragment="header" class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">ЗооМагазин</h1>
+                <nav class="main-nav">
+                    <div sec:authorize="isAuthenticated()">
+                        <a th:href="@{/home}">Главная</a>
+                        <a sec:authorize="hasAuthority('CLIENT')" th:href="@{/client/products}">Каталог</a>
+                        <a sec:authorize="hasAuthority('CLIENT')" th:href="@{/client/orders}">Мои заказы</a>
+                        <a sec:authorize="hasAnyAuthority('SUPPLIER', 'ADMIN')" th:href="@{/supplier/products}">Товары</a>
+                        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin/dashboard}">Админ панель</a>
+                        <a th:href="@{/logout}">Выход</a>
+                        <span>Пользователь: <span sec:authentication="name"></span></span>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+</body>
+</html>
+
+

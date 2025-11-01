@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить/Редактировать пользователя</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <div class="container">
+        <h2 th:text="${user.id != null} ? 'Редактировать пользователя' : 'Добавить пользователя'"></h2>
+        
+        <form th:action="${user.id != null ? '/admin/users/edit/' + user.id : '/admin/users/new'}" 
+              th:object="${user}" method="post" class="form">
+            
+            <div class="form-group">
+                <label for="username">Имя пользователя:</label>
+                <input type="text" id="username" th:field="*{username}" required>
+                <span class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" th:field="*{email}" required>
+                <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" th:field="*{password}" required>
+                <span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="role">Роль:</label>
+                <select id="role" th:field="*{role}" required>
+                    <option value="CLIENT">Клиент</option>
+                    <option value="SUPPLIER">Поставщик</option>
+                    <option value="ADMIN">Администратор</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="fullName">Полное имя:</label>
+                <input type="text" id="fullName" th:field="*{fullName}">
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Телефон:</label>
+                <input type="text" id="phone" th:field="*{phone}">
+            </div>
+            
+            <div class="form-group">
+                <label for="enabled">Активен:</label>
+                <input type="checkbox" id="enabled" th:checked="*{enabled}">
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <a th:href="@{/admin/users}" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
+

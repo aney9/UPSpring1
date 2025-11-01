@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель поставщика</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <div class="container">
+        <h2>Панель поставщика</h2>
+        <div class="info-section" th:if="${supplier}">
+            <h3>Информация о компании</h3>
+            <p><strong>Название:</strong> <span th:text="${supplier.companyName}"></span></p>
+            <p><strong>Контактное лицо:</strong> <span th:text="${supplier.contactPerson}"></span></p>
+            <p><strong>Телефон:</strong> <span th:text="${supplier.phone}"></span></p>
+        </div>
+        
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <h3>Товаров</h3>
+                <p class="stat-number" th:text="${productsCount}"></p>
+            </div>
+        </div>
+        
+        <div class="dashboard-actions">
+            <a th:href="@{/supplier/products}" class="btn btn-primary">Управление товарами</a>
+            <a th:href="@{/supplier/products/new}" class="btn btn-success">Добавить товар</a>
+        </div>
+    </div>
+</body>
+</html>
+
+
